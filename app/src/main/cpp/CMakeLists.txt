@@ -11,6 +11,16 @@ cmake_minimum_required(VERSION 3.22.1)
 # build script scope).
 project("pixeltrace")
 
+# Set the path to the OpenCV SDK that you imported
+set(OpenCV_DIR ${CMAKE_SOURCE_DIR}/../../../../opencv/native/jni)
+
+# Find the OpenCV package
+find_package(OpenCV REQUIRED)
+
+# Include the OpenCV directories
+include_directories(${OpenCV_INCLUDE_DIRS})
+
+
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
@@ -31,7 +41,8 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
 # Specifies libraries CMake should link to your target library. You
 # can link libraries from various origins, such as libraries defined in this
 # build script, prebuilt third-party libraries, or Android system libraries.
-target_link_libraries(${CMAKE_PROJECT_NAME}
-        # List libraries link to the target library
+target_link_libraries( # Specifies libraries pixeltrace depends on.
+        pixeltrace
         android
-        log)
+        log
+        ${OpenCV_LIBS} ) # Add this line

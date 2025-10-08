@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "PixelTrace"
 include(":app")
- 
+include(":sdk")
