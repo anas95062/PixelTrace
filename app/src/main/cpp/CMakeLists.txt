@@ -45,4 +45,5 @@ target_link_libraries( # Specifies libraries pixeltrace depends on.
         pixeltrace
         android
         log
-        ${OpenCV_LIBS} ) # Add this line
+        ${OpenCV_LIBS}
+        GLESv2 )
