@@ -12,7 +12,7 @@ cmake_minimum_required(VERSION 3.22.1)
 project("pixeltrace")
 
 # Set the path to the OpenCV SDK that you imported
-set(OpenCV_DIR ${CMAKE_SOURCE_DIR}/../../../../opencv/native/jni)
+set(OpenCV_DIR ${CMAKE_SOURCE_DIR}/../../../../sdk/native/jni)
 
 # Find the OpenCV package
 find_package(OpenCV REQUIRED)
