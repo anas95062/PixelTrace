@@ -42,8 +42,12 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private final float[] quadVertices = {
             -1.0f,  1.0f, -1.0f, -1.0f, 1.0f,  1.0f, 1.0f, -1.0f
     };
+    // --- NEW ROTATED TEXTURE COORDINATES ---
     private final float[] texCoords = {
-            0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f
+            0.0f, 1.0f,   // Rotated Top Left (was Bottom Left)
+            1.0f, 1.0f,   // Rotated Bottom Left (was Bottom Right)
+            0.0f, 0.0f,   // Rotated Top Right (was Top Left)
+            1.0f, 0.0f    // Rotated Bottom Right (was Top Right)
     };
 
     public MyGLRenderer() {

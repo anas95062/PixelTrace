@@ -1,12 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Processed Frame Viewer</title>
+    <title>PixelTrace Project Gallery</title>
+    <style>
+        /* CSS for styling the gallery */
+        body {
+            font-family: sans-serif;
+            text-align: center;
+        }
+        .gallery-container {
+            display: flex;
+            flex-direction: column; /* Rows will stack vertically */
+            gap: 20px; /* Space between rows */
+            padding: 20px;
+        }
+        .gallery-row {
+            display: flex; /* Makes items in a row go side-by-side */
+            justify-content: space-around; /* Adds space between items */
+            align-items: flex-start;
+            gap: 20px; /* Space between images in a row */
+        }
+        .gallery-item {
+            width: 45%; /* Each item takes up roughly half the row width */
+            border: 1px solid #ddd;
+            padding: 10px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+        .gallery-item img {
+            width: 100%; /* Makes image responsive inside its container */
+            height: auto;
+        }
+        .gallery-item p {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-<h1>Processed Frame</h1>
-<img id="processedImage" src="./sample_frame.jpg" alt="Processed Frame" style="width:100%; max-width:640px;" />
+
+<h1>PixelTrace - Project Journey</h1>
+
+<div class="gallery-container">
+    <div class="gallery-row">
+        <div class="gallery-item">
+            <img src="./sample_frame1.jpg" alt="Initial Canny Filter">
+            <p>1. Initial Canny Filter (No FPS)</p>
+        </div>
+        <div class="gallery-item">
+            <img src="./sample_frame2.jpg" alt="Added FPS Counter">
+            <p>2. Added FPS Counter</p>
+        </div>
+    </div>
+
+    <div class="gallery-row">
+        <div class="gallery-item">
+            <img src="./sample_frame3.jpg" alt="Added Toggle Button">
+            <p>3. Added Toggle Button</p>
+        </div>
+        <div class="gallery-item">
+            <img src="./sample_frame4.jpg" alt="Shader-based Color Conversion">
+            <p>4. Shader-based Grayscale</p>
+        </div>
+    </div>
+</div>
+
 <div id="stats"></div>
 <script src="main.js"></script>
+
 </body>
 </html>
