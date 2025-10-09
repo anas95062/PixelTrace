@@ -12,18 +12,21 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.opengl.GLSurfaceView; // Import GLSurfaceView
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.anas.pixeltrace.gl.MyGLRenderer; // Import your renderer
 import com.google.common.util.concurrent.ListenableFuture;
-
 import java.util.concurrent.ExecutionException;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
     private GLSurfaceView glSurfaceView;
     private MyGLRenderer renderer;
-
+    private TextView fpsTextView;
+    private Button toggleButton;
+    private int frameCount = 0;
+    private long lastFpsTimestamp = 0;
     private static final int REQUEST_CODE_PERMISSIONS = 10;
     private static final String[] REQUIRED_PERMISSIONS = new String[]{Manifest.permission.CAMERA};
 
@@ -32,7 +35,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        fpsTextView = findViewById(R.id.fps_text_view);
+
         glSurfaceView = findViewById(R.id.glSurfaceView);
+
+        toggleButton = findViewById(R.id.toggle_button);
+        toggleButton.setOnClickListener(v -> {
+            // Call the native toggle method when the button is clicked
+            NativeBridge.toggleFilter();
+        });
 
         // Configure GLSurfaceView for OpenGL ES 2.0
         glSurfaceView.setEGLContextClientVersion(2);
@@ -63,6 +74,20 @@ public class MainActivity extends AppCompatActivity {
                         .build();
 
                 imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(this), imageProxy -> {
+
+                    // --- ADD FPS CALCULATION LOGIC ---
+                    frameCount++;
+                    long currentTime = System.currentTimeMillis();
+                    if (lastFpsTimestamp == 0) {
+                        lastFpsTimestamp = currentTime;
+                    }
+                    if (currentTime - lastFpsTimestamp >= 1000) { // Update every second
+                        final int fps = frameCount;
+                        runOnUiThread(() -> fpsTextView.setText("FPS: " + fps));
+                        frameCount = 0;
+                        lastFpsTimestamp = currentTime;
+                    }
+
                     java.nio.ByteBuffer yBuffer = imageProxy.getPlanes()[0].getBuffer();
                     byte[] yBytes = new byte[yBuffer.remaining()];
                     yBuffer.get(yBytes);
